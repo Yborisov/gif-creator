@@ -43,16 +43,38 @@ export default function App() {
 
   return ready ? (
     <div className="App">
-      {video && (
-        <video controls width="250" src={URL.createObjectURL(video)}></video>
-      )}
+      <section className="paper">
+        <article className="video-frame">
+          {video && <video controls src={URL.createObjectURL(video)}></video>}
 
-      <input type="file" onChange={(e) => setVideo(e.target.files?.item(0))} />
+          <label className="button">
+            <input
+              type="file"
+              onChange={(e) => setVideo(e.target.files?.item(0))}
+            />
+            Select File
+          </label>
+        </article>
 
-      <h3>Result</h3>
-      <button onClick={convertToGif}>Convert</button>
-
-      {gif && <img src={gif} />}
+        <article className="gif-frame">
+          <h2>Result</h2>
+          {video && (
+            <label className="button" onClick={convertToGif}>
+              Convert
+            </label>
+          )}
+          {gif && (
+            <>
+              <img alt={video.name} src={gif} />
+              <label className="button">
+                <a href={gif} download>
+                  Download
+                </a>
+              </label>
+            </>
+          )}
+        </article>
+      </section>
     </div>
   ) : (
     <p>Loading...</p>
